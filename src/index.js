@@ -3,6 +3,7 @@ import { OrbitControls } from "jsm/controls/OrbitControls.js";
 import { sunMesh, orbitList } from "./planets/sun.js";
 import { getplanetList } from "./planets/planet.js";
 import { radius_list } from "./secondaryEl/radiusList.js";
+import getStarfield from "./secondaryEl/getStarField.js";
 const scene = new THREE.Scene();
 export const solarSystem = new THREE.Object3D();
 const h = window.innerHeight;
@@ -25,7 +26,9 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.03;
 
-//positioning the planets
+//star field
+const stars = getStarfield();
+solarSystem.add(stars);
 
 // adding orbits to the solarSystem object
 const listOfOrbit = orbitList();
@@ -55,9 +58,8 @@ function animate() {
   t += 0.0001;
 
   for (let i = 0; i < allPlanets.length; i++) {
-    const x = (radius_list[i][0] * Math.cos(t * Math.PI * 2));
+    const x = radius_list[i][0] * Math.cos(t * Math.PI * 2);
     const y = radius_list[i][1] * Math.sin(t * Math.PI * 2);
-    console.log(x);
     if (allPlanets[i].len == 1) {
       allPlanets[i].planetMesh.position.set(x, y, 0);
       allPlanets[i].planetMesh.rotation.x = t * Math.PI;
