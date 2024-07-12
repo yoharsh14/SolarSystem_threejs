@@ -79,3 +79,10 @@ function animate() {
   controls.update();
 }
 animate();
+
+controls.addEventListener("change", () => {
+  const cameraPosition = camera.position;
+  if (cameraPosition.z <= 0.1) {
+    cameraPosition.z = 0.3;
+  }
+});
