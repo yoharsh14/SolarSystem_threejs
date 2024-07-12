@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export const createOrbit = (majorAxis = 50, minorAxis = 30) => {
+export const createOrbit = (majorAxis = 50, minorAxis = 30,colorOfOrbit=0xffffff) => {
   const semiMajorAxis = majorAxis; // Adjust based on desired orbit size
   const semiMinorAxis = minorAxis; // Adjust based on eccentricity
   const ellipseCurve = new THREE.EllipseCurve(
@@ -16,8 +16,9 @@ export const createOrbit = (majorAxis = 50, minorAxis = 30) => {
   const orbitGeometry = new THREE.BufferGeometry(ellipseCurve.getPoints(64)); // 64 segments for smooth line
   orbitGeometry.setFromPoints(points);
   const orbitMaterial = new THREE.LineBasicMaterial({
-    color: 0xf5efdf,
+    color: colorOfOrbit,
     linewidth: 10,
+    
   });
   return new THREE.Line(orbitGeometry, orbitMaterial);
 };
